@@ -1,0 +1,21 @@
+{
+	"name": "balancer/infonesy-driver-vanilla",
+	"description": "Infonesy Vanilla forum engine driver",
+	"authors": [
+		{
+			"name": "Roman =Balancer= Karshiev",
+			"email": "balancer@balancer.ru"
+		}
+	],
+
+	"require": {
+		"balancer/bors-core": "*",
+		"robmorgan/phinx": "*"
+	},
+
+	"autoload": {
+		"psr-4": {
+			"Infonesy\\Driver\\": "src/"
+		}
+	}
+}
