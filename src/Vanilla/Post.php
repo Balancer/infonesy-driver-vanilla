@@ -13,14 +13,14 @@ class Post extends \B2\Obj
 			return self::loader($infonesy_post, NULL, $data);
 
 		$author = User::find_or_create($data['Author']);
-		$topic = 4; //Topic::find_or_create(['UUID' => $data['TopicUUID']]);
+		$topic = Topic::find_or_create(['UUID' => $data['TopicUUID']]);
 
 		$data['vanilla_b2_topic'] = $topic;
 
 		echo "tid={$topic->id()}, uid={$author->id()}, date={$data['Date']}\n";
 
 		// Make vanilla post
-		$vanilla_post = self::create([
+		$vanilla_post = B2Model\Post::create([
 			'topic_id'		=> $topic->id(),
 			'author_id'		=> $author->id(),
 			'text'			=> $data['Text'],
@@ -41,12 +41,11 @@ class Post extends \B2\Obj
 		if(!$b2_post)
 			$b2_post = B2Model\Post::load($infonesy_post->vanilla_post_id());
 
-/*
 		if(empty($data['vanilla_b2_topic']))
 			$topic = Topic::find_or_create(['UUID' => $data['TopicUUID']]);
 		else
 			$topic = $data['vanilla_b2_topic'];
-*/
+
 		if((!$b2_post->topic_id() || $b2_post->topic_id() == config('vanilla.quarantine.topic_id')) && !empty($data['TopicUUID']))
 			$b2_post->set_topic_id($topic->id());
 
@@ -63,7 +62,7 @@ class Post extends \B2\Obj
 
 		$b2_post->save();
 
-		$topic->recalculate();
+//		$topic->recalculate();
 
 		return $b2_post;
 	}
