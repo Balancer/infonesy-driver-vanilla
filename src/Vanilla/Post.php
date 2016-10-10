@@ -46,7 +46,7 @@ class Post extends \B2\Obj
 		else
 			$topic = $data['vanilla_b2_topic'];
 
-		if((!$b2_post->topic_id() || $b2_post->topic_id() == config('vanilla.quarantine.topic_id')) && !empty($data['TopicUUID']))
+		if((!$b2_post->topic_id() || $b2_post->topic_id() == \B2\Cfg::get('vanilla.quarantine.topic_id')) && !empty($data['TopicUUID']))
 			$b2_post->set_topic_id($topic->id());
 
 		if(!empty($data['Date']))
